@@ -37,6 +37,15 @@ export default function Dashboard() {
     }
   };
 
+  const changeAccountStatus = async (accountId, newStatus) => {
+    try {
+      await api.patch(`/accounts/${accountId}/status`, { status: newStatus });
+      fetchAccounts();
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to update account status');
+    }
+  };
+
   if (loading) return <div className="text-center mt-8">Loading...</div>;
 
   return (
@@ -74,6 +83,17 @@ export default function Dashboard() {
                   {balances[acc._id] !== undefined ? `${acc.currency === 'INR' ? '₹' : ''}${balances[acc._id].toFixed(2)}` : '...'}
                 </div>
               </div>
+              {acc.status === 'ACTIVE' && (
+                <div className="mt-4">
+                  <button 
+                    onClick={() => changeAccountStatus(acc._id, 'CLOSED')}
+                    className="btn btn-danger"
+                    style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', width: '100%' }}
+                  >
+                    Close Account
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

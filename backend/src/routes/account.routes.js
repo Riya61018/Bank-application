@@ -28,6 +28,11 @@ router.get("/", authMiddleware.authMiddleware, accountController.getUserAccounts
  */
 router.get("/balance/:accountId", authMiddleware.authMiddleware, accountController.getAccountBalanceController)
 
+/**
+ * - PATCH /api/accounts/:accountId/status
+ * - Update account status
+ */
+router.patch("/:accountId/status", authMiddleware.authMiddleware, accountController.updateAccountStatusController)
 
 
 module.exports = router
