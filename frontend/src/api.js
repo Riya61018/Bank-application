@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: "/api", // Using proxy in vite.config.js to avoid CORS issues locally
+  baseURL: import.meta.env.VITE_API_URL || "/api", // Fallback to /api for local dev proxy
   withCredentials: true, // Send cookies with requests
 });
 
